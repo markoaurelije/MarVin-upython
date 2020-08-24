@@ -8,8 +8,11 @@ class LedMatrix():
         self.height = height
         self.cascaded = cascaded
         self.intesity = 1
+        self.backcolor = (0,0,0)
 
-    def clear(self, backcolor=(0,0,0) ):
+    def clear(self, backcolor=None ):
+        if not backcolor:
+            backcolor = self.backcolor
         color = list(backcolor)
         color.append(self.intesity)
         color = tuple(color)
@@ -42,7 +45,7 @@ class LedMatrix():
 
     def text(self, txt, color=(0xC0, 0xC0, 0xC0), font=proportional(LCD_FONT), start=(0,0)):
 
-        self.clear()
+        # self.clear()
 
         x, y = start
         for ch in txt:
@@ -51,8 +54,14 @@ class LedMatrix():
                 for j in range(8):
                     if byte & 0x01 > 0:
                         self.point((x, y + j), color=color)
-
+                    else:
+                        self.point((x, y + j), self.backcolor)
                     byte >>= 1
                 x += 1
         
+        for pos_x in range(x, self.width * self.cascaded):
+            for pos_y in range(self.height):
+                # print(x, y)
+                self.point((pos_x, pos_y), self.backcolor)
+
         self.draw()

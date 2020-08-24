@@ -12,6 +12,7 @@ rtc = machine.RTC()
 t = ntptime.time()
 t += 7200
 tm = utime.localtime(t)
+# print("NTP fetched: ", tm)
 rtc.datetime((tm[0], tm[1], tm[2], tm[6] + 1, tm[3], tm[4], tm[5], 0))
 
 def showTime(timer):
@@ -24,4 +25,4 @@ def showTime(timer):
 showTime(None)
 
 t=machine.Timer(0)
-t.init(period=60000, mode=machine.Timer.PERIODIC, callback=showTime)
+t.init(period=20000, mode=machine.Timer.PERIODIC, callback=showTime)
