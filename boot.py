@@ -9,6 +9,10 @@ import webrepl
 webrepl.start()
 gc.collect()
 
+import apa102, machine
+strip = apa102.APA102(machine.Pin(5), machine.Pin(4), 8*7*3)
+strip.write()
+
 def do_connect():
     import network
     sta_if = network.WLAN(network.STA_IF)
@@ -21,5 +25,8 @@ def do_connect():
         while not sta_if.isconnected():
             pass
     print('network config:', sta_if.ifconfig())
+
+    # ap_if = network.WLAN(network.AP_IF)
+    # print('AP config:', ap_if.ifconfig())
 
 do_connect()

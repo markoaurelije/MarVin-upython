@@ -35,7 +35,7 @@ class LedMatrix():
             x = x-self.width*cascade
             
         pos += y * self.width + x
-        # if pos >= self.width * self.height:
+        # if pos >= self.width * self.height: 
         #     return
         # print(pos)
         self.strip[pos] = color
